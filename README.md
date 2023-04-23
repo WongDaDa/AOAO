@@ -15,4 +15,4 @@ To run full model with full context components input, execute 'Execute.py' with 
 '--weights': string, 'path of trained model weights'   
    
 *code for baseline & no fuser model is still under reconstruction.   
-*new datasets are not supported yet.
+*new datasets are not supported yet, datasets involved in our experiments: 'race', 'cosmos_qa', 'dream', 'c3', 'swequad' and 'muserc'.
