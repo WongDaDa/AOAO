@@ -63,8 +63,8 @@ def main(opt):
         CURRENT_EPOCH = 1
 
         print('initializing training')
-        TOTAL_ITERS = int(EPOCH*sum(len(dataset.train_dataloader) for dataset in datasets)/ACCUMULATION_ITER)
-        WARMING_ITERS = int(WARMUPS*TOTAL_ITERS)
+        TOTAL_ITERS = int(sum(len(dataset.train_dataloader) for dataset in datasets)/ACCUMULATION_ITER)
+        WARMING_ITERS = int(WARMUPS*TOTAL_ITERS*EPOCH)
         train_rec = []
         loss_rec = []
         eval_record = []
@@ -78,7 +78,7 @@ def main(opt):
         lr_scheduler = get_scheduler('linear',
             optimizer=optim,
             num_warmup_steps=WARMING_ITERS,
-            num_training_steps=WARMING_ITERS+TOTAL_ITERS)
+            num_training_steps=WARMING_ITERS+int(TOTAL_ITERS*EPOCH))
         scaler = GradScaler()
 
         train_acc, train_loss = multi_train(DEVICE,model,optim,scaler,lr_scheduler,datasets,WARMING_ITERS,BIDIRECTION,CURRENT_EPOCH,ACCUMULATION_ITER)
@@ -119,9 +119,9 @@ def main(opt):
         print('initializing testing')
         model = InitNetwork.FCC_Network(TOKENIZER,ENCODER,BATCH_SIZE,HIDDEN,NEW_TOKENS,fuse=True,fuser_depth=3)
         model.load_state_dict(torch.load(opt.weights))
-        moedl.to(DEVICE)
-
-        if 'cosmos_qa' or 'MuSeRC' in NAME_DATASETS:
+        model.to(DEVICE)
+        
+        if 'cosmos_qa' in NAME_DATASETS or 'MuSeRC' in NAME_DATASETS:
             sys.exit('datasets consist of hosted datasets')
 
         else:
