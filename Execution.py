@@ -25,7 +25,7 @@ def parse_opt():
     parser.add_argument('--head_lr', type=float, default='1e-3', help='learning rate of head network (for fuser/reasoning network)')
     parser.add_argument('--sample_count', type=int, default='1', help='counts of sampling in one batch')
     parser.add_argument('--entry_count', type=int, default='16', help='number of entries in each sampling')
-    parser.add_argument('--epoch', type=int, default='7', help='batch size')
+    parser.add_argument('--epoch', type=int, default='7', help='number of epochs')
     parser.add_argument('--datasets', nargs='+', type=str, default=['cosmos_qa'], help='involved datasets')
     parser.add_argument('--warmups',type=float,default='0.16',help='proportion of warming up iters')
     parser.add_argument('--evaluation_only', type=bool, default=False, help='evaluation only')
