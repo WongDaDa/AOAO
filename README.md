@@ -1,4 +1,4 @@
-# Full-Context-Componets
+# Full Context Input
 Code for Project: Attend All Options At Once: Full Context Input For Multi-Choice Reading Comprehension
 
 To run the full model with full context components input, execute 'Execute.py' with the following args:   
